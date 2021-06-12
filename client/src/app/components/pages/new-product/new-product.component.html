@@ -1,0 +1,50 @@
+<div class="header">
+    <button type="button" class="d-inline float-right btn btn-primary close" aria-label="Close" (click)="closeButton()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h3>New product</h3>
+</div>
+
+<form [formGroup]=newProductForm>
+    <div class="form-group">
+        <input type="text" class="form-control" [ngClass]="{'is-valid': newProductForm.controls['productName'].dirty }"
+            id="productName" formControlName="productName" placeholder="Product name:">
+        <div class="valid-feedback" *ngIf="newProductForm.controls['productName'].value">
+            Product name looks good!
+        </div>
+    </div>
+
+    <div class="form-group">
+        <input type="number" class="form-control" min="0" (change)="preventNegativePrice()"
+            [ngClass]="{'is-valid': newProductForm.controls['productPrice'].dirty }" id="productPrice"
+            formControlName="productPrice" placeholder="Product price ($):">
+        <div class="valid-feedback" *ngIf="newProductForm.controls['productPrice'].value">
+            Product price looks good!
+        </div>
+    </div>
+
+    <div class="form-group">
+        <select class="form-control" [ngClass]="{'is-valid': newProductForm.controls['productCategory'].dirty }"
+            id="productCategory" formControlName="productCategory">
+            <option selected disabled>Category</option>
+            <option *ngFor="let category of productsService.productCategoryList" [ngValue]="category.name">
+                {{category.name}}</option>
+        </select>
+        <span class="text-danger" *ngIf="newProductForm.controls['productCategory'].hasError('required')">
+            Category required
+        </span>
+        <div class="valid-feedback" *ngIf="newProductForm.controls['productCategory'].value">
+            Category looks good!
+        </div>
+    </div>
+
+    <div class="form-group">
+        <span class="btn btn-default btn-file">
+            {{productPictureLabel}} <input type="file" (change)="uploadFile($event)">
+        </span>
+    </div>
+
+    <button type="button" [disabled]="!newProductForm.valid" class="btn btn-outline-primary btn-block"
+        (click)="addProduct()">Save</button>
+
+</form>

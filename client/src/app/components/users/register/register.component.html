@@ -1,0 +1,146 @@
+<div class="container">
+
+    <h2>Register Step {{currentStep}}</h2>
+
+    <!-- STEP 1 -->
+
+    <form *ngIf="isStep1" [formGroup]=step1Form>
+        <div class="form-group row">
+            <div class="col-sm-6">
+                <input type="text" class="form-control is-valid" id="ID" formControlName="ID" placeholder="ID"
+                    value="Mark" required>
+            </div>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+            <div col-sm-3>
+                <span class="text-danger"
+                    *ngIf="step1Form.controls['ID'].touched && step1Form.controls['ID'].hasError('required')">
+                    *required
+                </span>
+                <span class="text-danger" *ngIf="idExist"> user ID already exist </span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-6">
+                <input type="email" class="form-control" id="mail" formControlName="mail"
+                    placeholder="userMail@gmail.com">
+            </div>
+            <div col-sm-6>
+                <span class="text-danger"
+                    *ngIf="step1Form.controls['mail'].touched && step1Form.controls['mail'].hasError('required')">
+                    *required
+                </span>
+                <span class="text-danger"
+                    *ngIf="step1Form.controls['mail'].touched && step1Form.controls['mail'].hasError('email')">
+                    Email is not valid! </span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-6">
+                <input type="password" class="form-control" id="password" formControlName="password"
+                    placeholder="Password">
+            </div>
+            <div col-sm-6>
+                <span class="text-danger"
+                    *ngIf="step1Form.controls['password'].touched && step1Form.controls['password'].hasError('required')">
+                    *required
+                </span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-6">
+                <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword"
+                    placeholder="Confirm password">
+            </div>
+            <div col-sm-6>
+                <span class="text-danger"
+                    *ngIf="step1Form.controls['confirmPassword'].touched && step1Form.controls['confirmPassword'].hasError('required')">
+                    *required
+                </span>
+                <span class="text-danger"
+                    *ngIf="step1Form.controls['confirmPassword'].touched && step1Form.controls['confirmPassword'].hasError('NoPassswordMatch')">
+                    Password do not match
+                </span>
+            </div>
+        </div>
+
+        <div class="form-group row serverError">
+            <span class="text-danger" *ngIf="isError"> {{isError}} </span>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-5">
+                <button [disabled]="!step1Form.valid" type="button" class="btn btn-primary" (click)="step1()">Next
+                    to
+                    step 2</button>
+                <a routerLink="/" class="btn btn-primary ml-2" (click)="login()">Login</a>
+            </div>
+        </div>
+    </form>
+
+    <!-- STEP 2 -->
+
+    <form *ngIf="!isStep1" [formGroup]=step2Form>
+        <div class="form-group row">
+            <div class="col-sm-6">
+                <select class="form-control" formControlName="city">
+                    <option value="" disabled selected>Choose your City</option>
+                    <option *ngFor="let city of userService.cities" [ngValue]="city.name">{{city.name}}
+                </select>
+            </div>
+            <div col-sm-6>
+                <span class="text-danger"
+                    *ngIf="step2Form.controls['city'].touched && step2Form.controls['city'].hasError('required')">
+                    *required - Choose City
+                </span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-6">
+                <input type="text" class="form-control" placeholder="Street" id="street" formControlName="street">
+            </div>
+            <div col-sm-6>
+                <span class="text-danger"
+                    *ngIf="step2Form.controls['street'].touched && step2Form.controls['street'].hasError('required')">
+                    *required
+                </span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-6">
+                <input type="text" class="form-control" placeholder="First name" id="firstName"
+                    formControlName="firstName">
+            </div>
+            <div col-sm-6>
+                <span class="text-danger"
+                    *ngIf="step2Form.controls['firstName'].touched && step2Form.controls['firstName'].hasError('required')">
+                    *required
+                </span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-6">
+                <input type="text" class="form-control" placeholder="Last name" id="lastName"
+                    formControlName="lastName">
+            </div>
+            <div col-sm-6>
+                <span class="text-danger"
+                    *ngIf="step2Form.controls['lastName'].touched && step2Form.controls['lastName'].hasError('required')">
+                    *required
+                </span>
+            </div>
+        </div>
+
+        <div class="form-group row serverError">
+            <span class="text-danger " *ngIf="isError"> {{isError}} </span>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-5">
+                <button [disabled]="!step2Form.valid" type="button" class="btn btn-primary" (click)="step2()">Sign
+                    in</button>
+            </div>
+        </div>
+    </form>
+</div>

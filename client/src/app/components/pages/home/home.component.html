@@ -1,0 +1,60 @@
+<!-- Nav tabs -->
+<ul class="nav nav-pills nav-fill" role="tablist">
+    <li *ngFor="let category of  productsService.productCategoryList" class="nav-link"
+        [ngClass]="{active:  isSelectedCategory(category.name)}">
+        <a class="nav-link " data-toggle="tab" (click)="selectCategory(category)">{{category.name}}</a> </li>
+</ul>
+<!-- Tab panes -->
+<div class="tab-content">
+    <div id="home" class="container tab-pane active"><br>
+        <h3>{{productsService.selectedCategory}}</h3>
+        <!-- card -->
+        <div class="row row-cols-1 row-cols-md-4">
+            <div *ngFor="let product of productsService.productsByCategory | search : productsService.searchProduct:'cartSearch'"
+                class="col mb-4" (click)="selectProduct(product)">
+                <div class="card h-100 border-primary text-primary">
+                    <img class="card-img-top" src="{{product.productPicture}}" alt="">
+
+                    <div class="card-body">
+                        <h5 class="card-title">{{product.productName}}</h5>
+                        <p class="card-text">Price: {{product.productPrice}} &#8362;</p>
+                        <p class="text-success text-center click">Click to {{editOrSelect}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal" id="myModal" [style.display]="showModal ? 'block' : 'none'">
+
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title text-center">{{ title }}</h4>
+                <button type="button" class="close" data-dismiss="modal" (click)="hide()">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <span>Price: {{ content }} &#8362;</span>
+                <input type="number" class="form-control text-center" min="0" placeholder="Quantity"
+                    [(ngModel)]="quantity">
+
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success" data-dismiss="modal" (click)="addToCart()">Add to
+                    cart</button>
+                <button type="button" class="btn btn-outline-danger" data-dismiss="modal"
+                    (click)="hide()">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>

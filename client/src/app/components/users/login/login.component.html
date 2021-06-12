@@ -1,0 +1,42 @@
+<div class="container">
+    <p>
+        <span class="admin"> admin: </span>root@gmail.com <br>
+        <span class="admin"> password: </span>root<br>
+        <span class="user"> user: </span>user1@gmail.com<br>
+        <span class="user"> password: </span>1234
+    </p>
+    <h2>Login</h2>
+
+    <form [formGroup]=loginForm>
+
+        <!-- Email -->
+        <div class="form-group row">
+            <input type="email" class="form-control" id="mail" formControlName="mail" placeholder="userMail@gmail.com">
+            <span class="text-danger"
+                *ngIf="loginForm.controls['mail'].touched && loginForm.controls['mail'].hasError('required')">
+                *required
+            </span>
+            <span class="text-danger"
+                *ngIf="loginForm.controls['mail'].touched && loginForm.controls['mail'].hasError('email')">
+                Email is not valid! </span>
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                else.</small>
+        </div>
+
+        <!-- Password -->
+        <div class=" form-group row">
+            <input type="password" class="form-control" id="password" formControlName="password" placeholder="Password">
+            <span class="text-danger"
+                *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].hasError('required')">
+                *required
+            </span>
+        </div>
+
+        <!-- Login/Register buttons -->
+        <div class="form-group row">
+            <button [disabled]="!loginForm.valid" type="button" class="btn btn-primary" (click)="login()">Login</button>
+            <a routerLink="/user/register" class="btn btn-primary ml-2">Register</a>
+        </div>
+
+    </form>
+</div>

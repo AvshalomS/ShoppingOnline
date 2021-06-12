@@ -1,0 +1,114 @@
+<div class="container-fluid" *ngIf="orderProcess">
+    <div class="row">
+
+        <!-- Cart panel -->
+        <div class="col">
+            <h3>My Cart</h3>
+            <div class="line"></div>
+            <div class="cartLine"
+                *ngFor="let item of cartAndOrdersService.shoppingCart.cartItems | search : productsService.searchProduct:'orderSearch'"
+                [ngClass]="{'searched-product': item.isSearched}">
+                <div class="Image">
+                    <img width="20" height="20" src="{{item.productID.productPicture}}">
+                </div>
+                <div class="productName">
+                    {{item.productID.productName}}
+                    <span class="calculate"> {{item.productID.productPrice}}$ * {{item.quantity}} </span>
+                </div>
+                <div class="price">
+                    {{item.productID.productPrice * item.quantity}}$
+                </div>
+            </div>
+
+            <div class="cartFooter ">
+                <h6> ------ END ------</h6>
+            </div>
+            <div>
+                <h6> Total Price: {{cartAndOrdersService.shoppingCart.totalPrice}}$ </h6>
+                <h5 class="noChanges">NO CHANGES PERMITTED HERE!</h5>
+            </div>
+
+        </div>
+
+        <!-- Order panel -->
+        <div class="col">
+            <h3>Order</h3>
+            <div class="line"></div>
+            <div class="container">
+                <h5>Shipping Details:</h5>
+                <div class="line"></div>
+
+                <!-- Order form -->
+                <form [formGroup]=orderForm>
+                    <div class="form-group row">
+                        <div class="col">
+                            <select class="form-control" formControlName="city" (dblclick)="setUserCity()">
+                                <option value="" disabled selected>Choose your City</option>
+                                <option *ngFor="let city of userService.cities" [ngValue]="city.name">{{city.name}}
+                                </option>
+                            </select>
+                        </div>
+                        <span class="text-danger"
+                            *ngIf="orderForm.controls['city'].touched && orderForm.controls['city'].hasError('required')">
+                            *required
+                        </span>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col">
+                            <input type="text" class="form-control" formControlName="street" placeholder="Street"
+                                (dblclick)="setUserStreet()">
+                        </div>
+                        <span class="text-danger"
+                            *ngIf="orderForm.controls['street'].touched && orderForm.controls['street'].hasError('required')">
+                            *required
+                        </span>
+                    </div>
+                    <div class="form-group row">
+                        <label for="shippingDate" class="col-sm-12 col-form-label">Shipping Date</label>
+                        <div class="col">
+                            <input type="date" class="form-control" formControlName="shippingDate"
+                                (click)="delErrorMessage()">
+                        </div>
+                        <span class="text-danger"
+                            *ngIf="orderForm.controls['shippingDate'].touched && orderForm.controls['shippingDate'].hasError('required')">
+                            *required
+                        </span>
+                        <span class="text-danger customValidation" *ngIf="moreThen3">
+                            You have to choose another day, all deliveries are busy!
+                        </span>
+                    </div>
+                    <div class="form-group row">
+                        <label for="creditCart" class="col-sm-12 col-form-label">Payments:</label>
+                        <div class="col">
+                            <input type="text" class="form-control" formControlName="creditCart"
+                                placeholder="Credit Cart">
+                        </div>
+                        <span class="text-danger"
+                            *ngIf="orderForm.controls['creditCart'].touched && orderForm.controls['creditCart'].hasError('required')">
+                            *required
+                        </span>
+                        <span class="text-danger customValidation"
+                            *ngIf="orderForm.controls['creditCart'].touched && orderForm.controls['creditCart'].hasError('required')">
+                            invalid credit card!
+                        </span>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col">
+                            <button [disabled]="!orderForm.valid" type="button" class="btn btn-primary btn-block"
+                                (click)="order()">Order</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container" *ngIf="!orderProcess">
+    <div class="alert alert-primary" id="finishOrder" role="alert">
+        <h1>קנייתך בוצעה בהצלחה</h1>
+        <h4 id="download" (click)="exportHtmlToPDF()">לחץ כאן להורדת הקבלה</h4>
+        <button class="btn btn-outline-success btn-lg btn-block" (click)="backToWelcome()">אישור</button>
+    </div>
+</div>

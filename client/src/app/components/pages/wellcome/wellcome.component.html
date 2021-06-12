@@ -1,0 +1,33 @@
+<div style="text-align:center">
+    <h1>
+        Welcome to {{ title }}!
+    </h1>
+</div>
+<div class="container">
+    <div class="row">
+
+        <!-- Panel B -->
+        <div class="col-sm-6">
+            <img src="{{welcomeImg}}" width="80%">
+            <h3>Why should you buy in our store?</h3>
+            <p>
+                <span>Quality -</span> We do not compromise on the quality of the products.<br>
+                <span>Service -</span> We are known for the professional service we provide to our customers.<br>
+                <span>Price -</span> We guarantee the most fair prices
+            </p>
+        </div>
+
+        <!-- Panel C -->
+        <div class="col-sm-6">
+            <p class="panelC">Available products in our store - {{productsService.numOfProducts }}</p>
+            <p class="panelC">Number of orders submitted in our store - {{cartAndOrdersService.numOfOrders}}</p>
+            <div *ngIf="cartAndOrdersService.wellcomeMessage" class="notification">
+                <h3>Notification:</h3>
+                <p class="panelC">{{cartAndOrdersService.wellcomeMessage}}<br>
+                    <span id="date">{{cartAndOrdersService.cartDate | date:'short'}}</span>
+                </p>
+                <p class="panelC">{{cartAndOrdersService.openCartMessage}}</p>
+            </div>
+        </div>
+    </div>
+</div>

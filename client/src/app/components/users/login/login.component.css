@@ -1,0 +1,18 @@
+h2 {
+  /* margin-top: 50%; */
+  padding: 3%;
+}
+
+form {
+  margin-top: 2%;
+  padding: 3%;
+}
+p {
+  margin: 6%;
+}
+.admin {
+  color: red;
+}
+.user {
+  color: blue;
+}

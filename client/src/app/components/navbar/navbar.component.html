@@ -1,0 +1,48 @@
+<!-- Start side bar -->
+<div class="wrapper">
+    <!-- Sidebar Holder -->
+    <nav id="sidebar" [ngClass]="{active: showSideNav}">
+
+        <div id="sidebarNav">
+            <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+                <a class="navbar-brand">
+                    Shopping site
+                </a>
+            </nav>
+        </div>
+
+        <app-sidebar></app-sidebar>
+
+    </nav>
+
+    <!-- Page Content Holder (Top navbar) -->
+    <div id="content">
+        <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+            <!-- Brand/logo  -->
+            <div class="container-fluid" style="padding-left: 0px;">
+
+                <button type="button" id="sidebarCollapse" class="navbar-btn my-2 my-sm-0 mb-2 mr-2"
+                    (click)="toggleSidebar()" [ngClass]="{active: showSideNav}">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <input *ngIf="userService.isLogin" placeholder="Search" [(ngModel)]="productsService.searchProduct"
+                    (click)="search()">
+
+                <form class="ml-auto">
+                    <span class="navbar-brand" id="helloUser">Hello {{userService.getUserName()}}</span>
+                    <a *ngIf="userService.isLogin" routerLink="/user/logout" (click)="logout()"
+                        class="btn btn-outline-light my-2 my-sm-0 mb-2 mr-2">Logout</a>
+                </form>
+            </div>
+        </nav>
+
+        <div class="line"></div>
+
+        <router-outlet></router-outlet>
+
+    </div>
+</div>
+<!-- End Side bar -->

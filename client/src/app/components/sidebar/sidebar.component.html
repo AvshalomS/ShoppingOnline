@@ -1,0 +1,43 @@
+<!-- Login/Register system -->
+<app-login *ngIf="!userService.isLogin && !userService.isRegister"></app-login>
+
+<!-- User sidebar -->
+<div *ngIf="userService.role==='user' && !userService.isUserShopping && !userService.isUserFinishOrder"
+    id="startShopping" (click)="startShopping()">
+    {{cartAndOrdersService.startShoppingButtonText}}
+</div>
+<div class="shoppingCart" *ngIf="userService.role==='user' && userService.isUserShopping" id=myCart>
+    <h3>My Cart</h3>
+    <div class="line"></div>
+    <div class="cartLine" *ngFor="let item of cartAndOrdersService.shoppingCart.cartItems; let itemPlace = index">
+        <div class="delAndImage" (click)="deleteMe(itemPlace)">
+            <span class="delButton">&times; </span>
+            <img width="20" height="20" src="{{item.productID.productPicture}}">
+        </div>
+        <div class="productName">
+            {{item.productID.productName}}
+            <span class="calculate"> {{item.productID.productPrice}}$ * {{item.quantity}} </span>
+        </div>
+        <div class="price">
+            {{item.productID.productPrice * item.quantity}}$
+        </div>
+    </div>
+
+    <div class="cartFooter ">
+        Total Price: {{cartAndOrdersService.shoppingCart.totalPrice}}$
+    </div>
+    <div>
+        <button class="btn btn-outline-warning" (click)="deleteMe(null)">clear cart</button>
+        <button [disabled]="cartAndOrdersService.shoppingCart.cartItems.length<1"
+            class="d-inline float-right btn btn-outline-success" (click)="order()">Order</button>
+    </div>
+</div>
+
+<!-- Admin sidebar -->
+<div *ngIf="userService.role==='Admin'" class="adminArea">
+    <button type="button" class="d-inline float-right btn btn-primary" (click)="addNewProduct()">+</button>
+    <h3>Administration</h3>
+    <div class="line"></div>
+    <app-new-product *ngIf="userService.adminNewProduct"></app-new-product>
+    <app-edit-product *ngIf="userService.adminEditProduct"></app-edit-product>
+</div>

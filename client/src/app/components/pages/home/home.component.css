@@ -1,0 +1,11 @@
+ul {
+  padding: 1%;
+}
+.click:hover {
+  font-weight: bold;
+  background-color: yellow;
+}
+#startShopping:hover {
+  font-size: 17px;
+  color: black;
+}
