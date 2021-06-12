@@ -1,0 +1,6 @@
+{"_id":{"$oid":"5e3c671dc9bdc908dfe5e2aa"},"name":"Milk & Eggs"}
+{"_id":{"$oid":"5e3c6767d3a43e08df3bafa9"},"name":"Vegetables & Fruits"}
+{"_id":{"$oid":"5e3c677ed3a43e08df3bafaa"},"name":"Meat & Fish"}
+{"_id":{"$oid":"5e3c678ed3a43e08df3bafab"},"name":"Wine & Drinks"}
+{"_id":{"$oid":"5e3f2b7131b4c20c049397a1"},"name":"Bread & Pastries","__v":{"$numberInt":"0"}}
+{"_id":{"$oid":"5e77e66af8daed13357dc14c"},"name":"Search"}

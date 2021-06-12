@@ -1,0 +1,2 @@
+{"_id":{"$oid":"5e24c318a0eca610471f3341"},"mail":"root@gmail.com","ID":"0","password":"root","__v":{"$numberInt":"0"},"city":"","firstName":"root","lastName":"","role":"Admin","street":""}
+{"_id":{"$oid":"5e31f4c24ec72309f30ceadb"},"ID":"1","mail":"user1@gmail.com","password":"1234","__v":{"$numberInt":"0"},"city":"ירושלים","firstName":"user","lastName":"1","role":"user","street":"user 1 street"}
